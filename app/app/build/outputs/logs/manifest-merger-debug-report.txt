@@ -1,0 +1,85 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:2:1-33:12
+	package
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:4:5-55
+		INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:2:1-33:12
+		INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:2:1-33:12
+		INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:3:5-63
+uses-permission#android.permission.INTERNET
+ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:6:5-67
+	android:name
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:6:22-64
+application
+ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:8:5-32:19
+	android:supportsRtl
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:13:9-35
+	android:label
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:11:9-41
+	android:roundIcon
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:12:9-54
+	android:icon
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:10:9-43
+	android:allowBackup
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:9:9-35
+	android:theme
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:14:9-40
+activity#com.efbiay.ubeyid.Main
+ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:15:9-22:20
+	android:exported
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:16:13-36
+	android:name
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:15:19-39
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:17:13-21:29
+action#android.intent.action.MAIN
+ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:18:17-69
+	android:name
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:18:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:20:17-77
+	android:name
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:20:27-74
+service#com.efbiay.ubeyid.VPN.VPNService
+ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:23:9-30:19
+	android:exported
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:26:13-37
+	android:permission
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:25:13-69
+	android:name
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:24:13-43
+intent-filter#action:name:android.net.VpnService
+ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:27:13-29:29
+action#android.net.VpnService
+ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:28:17-65
+	android:name
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml:28:25-62
+uses-sdk
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+		ADDED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Android-VpnSocket\app\src\main\AndroidManifest.xml
