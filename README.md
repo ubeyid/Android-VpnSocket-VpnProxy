@@ -1,6 +1,7 @@
 # THIS PROJECT HAS BEEN FORKED FROM DRBRAD'S PROJECT https://github.com/DrBrad/Android-VPN-to-Socket
 # FIXED CONNECTION PROBLEMS AND SOME BUGS AND REMOVED UNNECESSARY CODE BLOCKS
 # Just install the app and click start button and it should work properly
+# YOU CAN ALSO ENABLE PROXY MODE TO ROUTE ALL YOUR TRAFFİC TO THİS SPECİFİED PROXY SERVER
 
 # Android-VpnSocket-VpnProxy
 ===========
