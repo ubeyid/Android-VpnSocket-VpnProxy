@@ -7,8 +7,10 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class Proxy extends Thread {
+
     private int portKey;
     private VPNService service;
     public short port;
@@ -35,6 +37,26 @@ public class Proxy extends Thread {
     }
 
     public class Tunnel extends Thread {
+        // |||||||||||||||
+        // |||||||||||||||
+        // READ THIS PART
+        // |||||||||||||||
+        // |||||||||||||||
+
+
+        //if you want to use this app as a proxy
+        //You must specify proyPort and proxyHost
+        //After that set isProxyEnabled to true;
+
+        private boolean isProxyEnabled=false;
+        private final String proxyHost="";//FOR EXAMPLE "77.39.38.31"
+        private final int proxyPort=0; //FOR EXAMPLE 8080
+
+
+        //This host and port number is request host and port
+        //So they are the adress that packet wants to go
+        private String host;
+        private int port;
 
         private Socket socket, server;
         private InputStream clientIn, serverIn;
@@ -58,27 +80,62 @@ public class Proxy extends Thread {
                     clientIn = socket.getInputStream();
                     clientOut = socket.getOutputStream();
 
+                    //this is for when proxy is not enabled we are getting destination host and port
                     //InetSocketAddress destination = new InetSocketAddress(socket.getInetAddress(), session.remotePort & 0xFFFF);
                     InetSocketAddress destination = new InetSocketAddress(socket.getInetAddress(), session.remotePort & 0xFFFF);
-                    String host=socket.getInetAddress().getHostAddress();
-                    int port=session.remotePort & 0xFFFF;
+
+                    //Setting up for proxy server
+                    host=socket.getInetAddress().getHostAddress();
+                    port=session.remotePort & 0xFFFF;
+                    String connectRequestToProxyServer=
+                            "CONNECT "+host+":"+port+" HTTP/1.1\r\n"+
+                            "Host: "+host+":"+port+"\r\n"+
+                            "Proxy-Connection: Keep-Alive\r\n"+
+                            "Connection: Keep-Alive\r\n"+
+                            "User-Agent: Diyarbakir/2121\r\n"+
+                            "\r\n";
 
                     Log.e("info", "CONNECTION:  "+socket.getInetAddress()+":"+session.remotePort+"   -HOST-   "+session.remoteHost);
 
 
                     //EVERYTHING PAST THIS WILL BE YOUR PROXY OR WHAT EVER YOU WISH TO DO...
 
-                    server = new Socket();
-                    server.bind(new InetSocketAddress(0));
-                    service.protect(server);
-                    server.setSoTimeout(5000);
-                    server.connect(destination, 5000);
-                    serverIn = server.getInputStream();
-                    serverOut = server.getOutputStream();
+                    //Check that if proxy mode is enabled so we will route all traffic to specified proxy address
+                    if(isProxyEnabled){
+                        server = new Socket();
+                        server.bind(new InetSocketAddress(0));
+                        service.protect(server);
+                        server.setSoTimeout(5000);
+                        server.connect(new InetSocketAddress(proxyHost,proxyPort), 5000);
+                        serverIn = server.getInputStream();
+                        serverOut = server.getOutputStream();
+                        serverOut.write(connectRequestToProxyServer.getBytes(StandardCharsets.UTF_8));
+                        byte[] responseFromProxy=new byte[1024];
+                        int sizeOfProxyResponse;
+                        String responseString;
+                        sizeOfProxyResponse=serverIn.read(responseFromProxy);
+                        if(sizeOfProxyResponse > 0){
+                            responseString=new String(responseFromProxy,0,sizeOfProxyResponse);
+                            if(responseString.contains("200")){
+                                relay();
+                            }
+                        }//if size not bigger than 0 so it directly close server and client connection
 
-                    relay();
+                    }else{
+                        server = new Socket();
+                        server.bind(new InetSocketAddress(0));
+                        service.protect(server);
+                        server.setSoTimeout(5000);
+                        server.connect(destination, 5000);
+                        serverIn = server.getInputStream();
+                        serverOut = server.getOutputStream();
+
+                        relay();
+                    }
+
                 }
             }catch(Exception e){
+                Log.d("ERROR",e.getMessage());
                 e.printStackTrace();
             }finally{
                 quickClose(socket);
