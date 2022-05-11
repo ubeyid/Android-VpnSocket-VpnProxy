@@ -1,15 +1,15 @@
 package com.efbiay.ubeyid.VPN;
 
+import android.util.Base64;
 import android.util.Log;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+
 
 public class Proxy extends Thread {
     private int portKey;
@@ -43,6 +43,17 @@ public class Proxy extends Thread {
         private InputStream clientIn, serverIn;
         private OutputStream clientOut, serverOut;
 
+
+        /////IF YOU WANT TO USE PROXY SO ROUTE YOUR ALL TRAFFIC TO PROXY YOU MUST SET isProxyEnabled=true
+        //// AND YOU MUST SET proxyHost="YOUR PROXY HOST" AND proxyPort=YOUR PROXY PORT
+        //// AND IF YOUR PROXY REQUIRES PROXY AUTHENTICATION
+        //// THEN YOU MUST SET proxyUserName="YOUR PROXY USERNAME" AND proxyPassword="YOUR PROXY PASSWORD"
+        private final boolean isProxyEnabled=false;
+        private final String proxyHost="192.168.123.152";//FOR EXAMPLE 192.168.123.152
+        private final int proxyPort=8888;//8888
+        private final String proxyUserName="ubeyid";
+        private final String proxyPassword="12345";
+        private final String proxyAuth="Basic "+ Base64.encodeToString((proxyUserName + ":" + proxyPassword).getBytes(StandardCharsets.UTF_8), Base64.DEFAULT);
         public Tunnel(Socket socket){
 
             this.socket = socket;
@@ -68,18 +79,49 @@ public class Proxy extends Thread {
 
                     Log.e("info", "CONNECTION:  "+socket.getInetAddress()+":"+session.remotePort+"   -HOST-   "+session.remoteHost);
 
+                    String connectToProxy="CONNECT "+host+":"+port+" HTTP/1.1\r\n"+
+                                           "Host: "+host+":"+port+"\r\n"+
+                                           "Proxy-Connection: Keep-Alive\r\n"+
+                                           "Proxy-Authorization: "+proxyAuth+"\r\n"+
+                                           "Connection: Keep-Alive\r\n"+
+                                           "User-Agent: Diyarbakir/2121\r\n"+
+                                           "\r\n";
 
                     //EVERYTHING PAST THIS WILL BE YOUR PROXY OR WHAT EVER YOU WISH TO DO...
+                    if(isProxyEnabled){
+                        Thread.sleep(100);
+                        server = new Socket();
+                        server.bind(new InetSocketAddress(0));
+                        service.protect(server);
+                        server.setSoTimeout(5000);
+                        server.connect(new InetSocketAddress(proxyHost,proxyPort), 5000);
+                        serverIn = server.getInputStream();
+                        serverOut = server.getOutputStream();
+                        serverOut.write(connectToProxy.getBytes(StandardCharsets.UTF_8));
+                        byte[] responseArrayFromProxy=new byte[1024];
+                        int responseSize=serverIn.read(responseArrayFromProxy);
+                        if(responseSize > 0){
+                            String responseStringFromProxy=new String(responseArrayFromProxy,0,responseSize);
+                            //CHECK RESPONSE FROM PROXY IF IT CONTAINS 200
+                            // THAT MEANS CONNECTION ESTABLISHED SO ROUTE TRAFFIC TO PROXY
+                            if(responseStringFromProxy.contains("200")){
+                                relay();
+                            }
+                        }
 
-                    server = new Socket();
-                    server.bind(new InetSocketAddress(0));
-                    service.protect(server);
-                    server.setSoTimeout(5000);
-                    server.connect(destination, 5000);
-                    serverIn = server.getInputStream();
-                    serverOut = server.getOutputStream();
+                    }else {
+                        //IN HERE WE DONT USE PROXY SEND ALL TRAFFIC TO THEIR REAL DESTINATION ADRESS
+                        server = new Socket();
+                        server.bind(new InetSocketAddress(0));
+                        service.protect(server);
+                        server.setSoTimeout(5000);
+                        server.connect(destination, 5000);
+                        serverIn = server.getInputStream();
+                        serverOut = server.getOutputStream();
 
-                    relay();
+                        relay();
+                    }
+
                 }
             }catch(Exception e){
                 e.printStackTrace();
