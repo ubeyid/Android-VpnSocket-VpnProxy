@@ -13,7 +13,7 @@ Quick and easy VPN to Socket using packet manipulation. Create proxys and firewa
 How can I create a proxy or firewall within this library? 
 -----------
 All you need to do is modify the ```VPN/Proxy.java``` file.
-[Proxy.java](https://github.com/ubeyid/Android-VPN-to-Socket/blob/master/app/src/main/java/vpntosocket/shadowrouter/org/vpntosocket/VPN/Proxy.java)
+[Proxy.java](https://github.com/ubeyid/Android-VpnSocket-VpnProxy/blob/master/app/app/src/main/java/vpntosocket/shadowrouter/org/vpntosocket/VPN/Proxy.java)
 
 How it works
 -----------
