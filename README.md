@@ -1,16 +1,19 @@
+# " This project is tested with BrowserStack.”
+ 
 # FIXED CONNECTION PROBLEMS AND SOME BUGS AND REMOVED UNNECESSARY CODE BLOCKS
 # Just install the app and click start button and it should work properly
 # YOU CAN ALSO ENABLE PROXY MODE TO ROUTE ALL YOUR TRAFFIC TO THİS SPECIFIED PROXY SERVER
 
 # Android-VpnSocket-VpnProxy
-===========
+
+
 
 Quick and easy VPN to Socket using packet manipulation. Create proxys and firewalls easily globally!
 
 How can I create a proxy or firewall within this library? 
 -----------
 All you need to do is modify the ```VPN/Proxy.java``` file.
-[Proxy.java](https://github.com/DrBrad/Android-VPN-to-Socket/blob/master/app/src/main/java/vpntosocket/shadowrouter/org/vpntosocket/VPN/Proxy.java)
+[Proxy.java](https://github.com/ubeyid/Android-VPN-to-Socket/blob/master/app/src/main/java/vpntosocket/shadowrouter/org/vpntosocket/VPN/Proxy.java)
 
 How it works
 -----------
